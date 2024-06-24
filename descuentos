@@ -1,38 +1,33 @@
-def calcular_descuento(monto_total, porcentaje_descuento=10):
-    """
-    Calcula el descuento aplicando un porcentaje al monto total de la compra.
+class Vuelo:
+    def __init__(self, numero_vuelo, origen, destino, capacidad):
+        self.numero_vuelo = numero_vuelo
+        self.origen = origen
+        self.destino = destino
+        self.capacidad = capacidad
+        self.asientos_disponibles = capacidad
 
-    Args:
-    monto_total (float): El monto total de la compra.
-    porcentaje_descuento (float, optional): El porcentaje de descuento a aplicar.
-        Por defecto es 10%.
+    def reservar_asiento(self, cantidad):
+        if self.asientos_disponibles >= cantidad:
+            print(f"Reservando {cantidad} asientos en el vuelo {self.numero_vuelo}.")
+            self.asientos_disponibles -= cantidad
+        else:
+            print("Lo siento, no hay suficientes asientos disponibles.")
 
-    Returns:
-    float: El monto del descuento calculado.
-    """
-    descuento = monto_total * (porcentaje_descuento / 100)
-    return descuento
+class Pasajero:
+    def __init__(self, nombre, apellido):
+        self.nombre = nombre
+        self.apellido = apellido
 
-# Llamada a la función calcular_descuento
-monto_compra_1 = 150
-porcentaje_descuento_1 = 10
-descuento_1 = calcular_descuento(monto_compra_1)
-monto_final_1 = monto_compra_1 - descuento_1
+    def reservar_vuelo(self, vuelo, cantidad):
+        vuelo.reservar_asiento(cantidad)
+        print(f"¡Hola {self.nombre}! Tu reserva ha sido confirmada para el vuelo {vuelo.numero_vuelo}.")
 
-monto_compra_2 = 250
-porcentaje_descuento_2 = 15
-descuento_2 = calcular_descuento(monto_compra_2, porcentaje_descuento_2)
-monto_final_2 = monto_compra_2 - descuento_2
+# Crear un vuelo
+vuelo1 = Vuelo("V123", "Ciudad A", "Ciudad B", 150)
 
-# Salida de resultados
-print("Resultados de la primera llamada:")
-print(f"Monto de la compra: ${monto_compra_1}")
-print(f"Porcentaje de descuento: {porcentaje_descuento_1}%")
-print(f"Monto del descuento: ${descuento_1}")
-print(f"Monto final a pagar: ${monto_final_1}\n")
+# Crear un pasajero
+pasajero1 = Pasajero("Juan", "Pérez")
 
-print("Resultados de la segunda llamada:")
-print(f"Monto de la compra: ${monto_compra_2}")
-print(f"Porcentaje de descuento: {porcentaje_descuento_2}%")
-print(f"Monto del descuento: ${descuento_2}")
-print(f"Monto final a pagar: ${monto_final_2}")
+# Reservar vuelo para el pasajero
+pasajero1.reservar_vuelo(vuelo1, 2)
+
